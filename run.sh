@@ -1,10 +1,13 @@
 #!/bin/bash
-ABSOLUTE_PATH=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd)/`basename "${BASH_SOURCE[0]}"`
-ABSOLUTE_PATH=$(dirname $ABSOLUTE_PATH)
+SCRIPT=$(readlink -f "$0")
+ABSOLUTE_PATH=$(dirname "$SCRIPT")
 
-echo $ABSOLUTE_PATH;
+echo $ABSOLUTE_PATH
 
-source variables.conf
+VARIABLE_CONF="$ABSOLUTE_PATH/variables.conf"
+
+echo $VARIABLE_CONF
+. $VARIABLE_CONF
 
 docker stop $DOCKER_NAME
 docker rm $DOCKER_NAME
